@@ -3,6 +3,7 @@ import './NavBar.css'
 import { FaLocationArrow } from "react-icons/fa6"
 import { GiTakeMyMoney } from "react-icons/gi"
 import {CoinContext} from "../../context/CoinContext.jsx";
+import { Link } from 'react-router-dom';
 
 
 
@@ -36,13 +37,19 @@ const NavBar = () => {
 
     return (
         <div className='navbar'>
-            <div className='logo'>
-                <GiTakeMyMoney />
-                CryptoPalace
-            </div>
+            <Link to={'/'}>
+                <div className='logo'>
+                    <GiTakeMyMoney/>
+                    CryptoPalace
+                </div>
+            </Link>
+
 
             <ul>
-                <li>Home</li>
+                <Link to={'/'}>
+                    <li>Home</li>
+                </Link>
+
                 <li>Features</li>
                 <li>Pricing</li>
                 <li>Blog</li>
