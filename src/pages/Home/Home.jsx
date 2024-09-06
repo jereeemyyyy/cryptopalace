@@ -6,10 +6,27 @@ const Home = () => {
 
     const {allCoin, currency} = useContext(CoinContext);
     const [displayCoin, setDisplayCoin] = useState([]);
+    const [input, setInput] = useState('');
 
     useEffect(() => {
         setDisplayCoin(allCoin);
     }, [allCoin]); //Basically updates whenever data is changed
+
+    const inputHandler = (event) => {
+        setInput(event.target.value);
+
+        if (event.target.value === "") {
+            setDisplayCoin(allCoin);
+        }
+    }
+
+    const searchHandler = async (event) => {
+        event.preventDefault();
+        const coins = await allCoin.filter((item) => {
+            return item.name.toLowerCase().includes(input.toLowerCase())
+        })
+        setDisplayCoin(coins);
+    }
 
     return (
         <div className='home'>
@@ -18,8 +35,8 @@ const Home = () => {
                 <p>Welcome to the world's largest cryptocurrency marketplace.
                 Sign up to explore more about cryptos.
                 </p>
-                <form>
-                    <input type="text" placeholder="Search crypto..."/>
+                <form onSubmit={searchHandler}>
+                    <input onChange={inputHandler} value={input} type="text" placeholder="Search crypto..." required/>
                     <button type="submit">Search</button>
                 </form>
             </div>
