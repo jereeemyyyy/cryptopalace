@@ -1,11 +1,38 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './NavBar.css'
 import { FaLocationArrow } from "react-icons/fa6"
 import { GiTakeMyMoney } from "react-icons/gi"
+import {CoinContext} from "../../context/CoinContext.jsx";
 
 
 
 const NavBar = () => {
+
+    const {setCurrency} = useContext(CoinContext);
+
+    const currencyHandler = (event) => {
+        switch(event.target.value) {
+            case "usd": {
+                setCurrency({name: "usd", symbol: "$"})
+                break;
+            }
+
+            case "sgd": {
+                setCurrency({name: "sgd", symbol: "S$"})
+                break;
+            }
+
+            case "eur": {
+                setCurrency({name: "eur", symbol: "€"})
+                break;
+            }
+
+            default: {
+                setCurrency({name: "usd", symbol: "$"})
+                break;
+            }
+        }
+    }
 
     return (
         <div className='navbar'>
@@ -22,7 +49,7 @@ const NavBar = () => {
             </ul>
 
             <div className="nav-right">
-                <select>
+                <select onChange={currencyHandler}>
                     <option value="usd">USD</option>
                     <option value="sgd">SGD</option>
                     <option value="eur">EUR</option>
